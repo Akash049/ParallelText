@@ -101,6 +101,7 @@ def logits_to_text(logits, tokenizer):
 #translated_seq = logits_to_text(bd_rnn_model.predict(input_en)[0], sp_tokenizer)
 
 print(input_en.shape)
+input_en = input_en.astype(float)
 
 predictions = bd_rnn_model.predict(input_en)
 
