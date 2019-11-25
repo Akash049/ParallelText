@@ -19,29 +19,29 @@ import pickle
 bd_rnn_model = load_model('Bd_RNN_Model_v3.h5')
 
 #reading data
-#spa = pd.read_csv('spa.txt', sep='\n', header = None)
+spa = pd.read_csv('spa.txt', sep='\n', header = None)
 
 #Preprocessing
-#spa.columns=['Content']
-#text = spa['Content'].apply(lambda x: x[: x.find('CC-BY 2.0')])
-#text = text.str.strip()
-#spa['English'] = text.apply(lambda x: x.split('\t')[0])
-#spa['Spanish'] = text.apply(lambda x: x.split('\t')[1])
-#spa = spa[['English','Spanish']]
-#spa['English'] = spa['English'].str.lower()
-#spa['Spanish'] = spa['Spanish'].str.lower()
+spa.columns=['Content']
+text = spa['Content'].apply(lambda x: x[: x.find('CC-BY 2.0')])
+text = text.str.strip()
+spa['English'] = text.apply(lambda x: x.split('\t')[0])
+spa['Spanish'] = text.apply(lambda x: x.split('\t')[1])
+spa = spa[['English','Spanish']]
+spa['English'] = spa['English'].str.lower()
+spa['Spanish'] = spa['Spanish'].str.lower()
 
 #Removing dots from starting and ending and numbers
-#spa['English'] = spa['English'].apply(lambda x: re.sub('[<>;+:!¡/\|?¿,.0-9@#$%^&*"]+' , '' , x))
-#spa['Spanish'] = spa['Spanish'].apply(lambda x: re.sub('[<>;+:!¡/\|?¿,.0-9@#$%^&*"]+' , '' , x))
+spa['English'] = spa['English'].apply(lambda x: re.sub('[<>;+:!¡/\|?¿,.0-9@#$%^&*"]+' , '' , x))
+spa['Spanish'] = spa['Spanish'].apply(lambda x: re.sub('[<>;+:!¡/\|?¿,.0-9@#$%^&*"]+' , '' , x))
 
 #replacing hypen with a space
-#spa['English'] = spa['English'].apply(lambda x: re.sub('[-]+' , ' ' , x))
-#spa['Spanish'] = spa['Spanish'].apply(lambda x: re.sub('[-]+' , ' ' , x))
-#del(text)
+spa['English'] = spa['English'].apply(lambda x: re.sub('[-]+' , ' ' , x))
+spa['Spanish'] = spa['Spanish'].apply(lambda x: re.sub('[-]+' , ' ' , x))
+del(text)
 
 #Shuffling dataset
-#spa = spa.sample(frac = 1)
+spa = spa.sample(frac = 1)
 
 def tokenize(x):
     """
@@ -64,15 +64,15 @@ def pad(x, length=None):
     # TODO: Implement
     return pad_sequences(x, maxlen=50, padding='post')
 	
-#en_tokenizer, sp_tokenizer = Tokenizer(), Tokenizer()
-#en_tokenizer.fit_on_texts(spa['English'].tolist())
-#sp_tokenizer.fit_on_texts(spa['Spanish'].tolist())
+en_tokenizer, sp_tokenizer = Tokenizer(), Tokenizer()
+en_tokenizer.fit_on_texts(spa['English'].tolist())
+sp_tokenizer.fit_on_texts(spa['Spanish'].tolist())
 
 # loading
-with open('english_tokenizer_2.pickle', 'rb') as handle:
-    en_tokenizer = pickle.load(handle)
-with open('spanish_tokenizer_2.pickle', 'rb') as handle:
-    sp_tokenizer = pickle.load(handle)
+#with open('english_tokenizer_2.pickle', 'rb') as handle:
+#    en_tokenizer = pickle.load(handle)
+#with open('spanish_tokenizer_2.pickle', 'rb') as handle:
+#    sp_tokenizer = pickle.load(handle)
 
 entered_text = input('Enter Text: ')
 
