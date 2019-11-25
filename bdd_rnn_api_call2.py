@@ -19,7 +19,7 @@ import pickle
 bd_rnn_model = load_model('Bd_RNN_Model_v2.h5')
 
 #reading data
-spa = pd.read_csv('spa.txt', sep='\n', header = None)
+#spa = pd.read_csv('spa.txt', sep='\n', header = None)
 
 #Preprocessing
 #spa.columns=['Content']
@@ -110,7 +110,7 @@ def logits_to_text(logits, tokenizer):
 #print(input_en.shape)
 input_en = input_en.astype(float)
 
-predictions = bd_rnn_model.predict(input_en)
+#predictions = bd_rnn_model.predict(input_en)
 
 #print(predictions.shape)
 
