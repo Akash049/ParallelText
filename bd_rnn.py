@@ -13,6 +13,7 @@ from tensorflow.python.keras.layers import GRU, Input, Dense, TimeDistributed, A
 from tensorflow.python.keras.layers.embeddings import Embedding
 from tensorflow.python.keras.optimizers import Adam
 from tensorflow.python.keras.losses import sparse_categorical_crossentropy
+import pickle
 
 #reading data
 spa = pd.read_csv('spa.txt', sep='\n', header = None)
@@ -80,6 +81,14 @@ def preprocess(x, y):
 
 preproc_english_sentences, preproc_spanish_sentences, english_tokenizer, spanish_tokenizer = preprocess(spa['English'].tolist(), spa['Spanish'].tolist())
 
+#Saving english and spanish tokenizer to use for scoring
+# saving english
+with open('english_tokenizer.pickle', 'wb') as handle:
+    pickle.dump(english_tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
+# saving spanish
+with open('spanish_tokenizer.pickle', 'wb') as handle:
+    pickle.dump(spanish_tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
 max_english_sequence_length = preproc_english_sentences.shape[1]  #48
 max_spanish_sequence_length = preproc_spanish_sentences.shape[1]  #53
 english_vocab_size = len(english_tokenizer.word_index)+1   #13411
@@ -137,10 +146,10 @@ bd_rnn_model = bd_model(
 	
 print(bd_rnn_model.summary())
 
-bd_rnn_model.fit(tmp_x, preproc_spanish_sentences, batch_size=256, epochs=5, validation_split=0.2)
+bd_rnn_model.fit(tmp_x, preproc_spanish_sentences, batch_size=256, epochs=1, validation_split=0.2)
 
 #Saving model
-bd_rnn_model.save('Bd_RNN_Model.h5')
+bd_rnn_model.save('Bd_RNN_Model_v2.h5')
 
 
 
