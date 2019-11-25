@@ -98,7 +98,7 @@ def logits_to_text(logits, tokenizer):
     return ' '.join([index_to_words[prediction] for prediction in np.argmax(logits, 1)])
 	
 # Print prediction(s)
-#translated_seq = logits_to_text(bd_rnn_model.predict(input_en)[0], sp_tokenizer)
+
 
 print(input_en.shape)
 input_en = input_en.astype(float)
@@ -107,6 +107,8 @@ predictions = bd_rnn_model.predict(input_en)
 
 print(predictions.shape)
 
+#Translated Seq
+translated_seq = logits_to_text(bd_rnn_model.predict(input_en)[0], sp_tokenizer)
 #Replacing any <PAD> with spaces
 translated_seq = translated_seq.replace('<PAD>', '')
 
