@@ -100,12 +100,12 @@ def logits_to_text(logits, tokenizer):
 # Print prediction(s)
 
 
-print(input_en.shape)
+#print(input_en.shape)
 input_en = input_en.astype(float)
 
 predictions = bd_rnn_model.predict(input_en)
 
-print(predictions.shape)
+#print(predictions.shape)
 
 #Translated Seq
 translated_seq = logits_to_text(bd_rnn_model.predict(input_en)[0], sp_tokenizer)
