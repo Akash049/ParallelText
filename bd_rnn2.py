@@ -146,7 +146,7 @@ bd_rnn_model = bd_model(
 	
 print(bd_rnn_model.summary())
 
-bd_rnn_model.fit(tmp_x, preproc_spanish_sentences, batch_size=512, epochs=3)
+bd_rnn_model.fit(tmp_x, preproc_spanish_sentences, batch_size=256, epochs=3)
 
 #Saving model
 bd_rnn_model.save('Bd_RNN_Model_v3.h5')
